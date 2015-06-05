@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function math_form_menu() {
+    $items = array();
+
+    $items['fapi/math-form'] = array(
+        'title' => 'Math Form',
+        'description' => 'A form for simple math',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('math_form_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_form()
+ */
+function math_form_form($form, &$form_state) {
+    $form['first_number'] = array(
+      '#type' => 'textfield',
+      '#title' => t('First Number'),
+      '#element_validate' => array('element_validate_number')
+    );
+    $form['second_number'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Second Number'),
+      '#element_validate' => array('element_validate_number')
+    );
+    $form['submit_button'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add'),
+    );
+  
+  return $form;
+}
+
+/*
+ * Add numbers and display result
+ */
+function math_form_form_submit($form, &$form_state) {
+  $num_1 = $form_state['values']['first_number'];
+  $num_2 = $form_state['values']['second_number'];
+  $sum = $num_1 + $num_2;
+
+  drupal_set_message(t('Your sum is: %string', array('%string' => $sum)));
+}

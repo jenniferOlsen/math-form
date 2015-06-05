@@ -1,0 +1,3 @@
+core = "7.x"
+description = "Simple form that adds two numbers."
+name = "Math Form"
